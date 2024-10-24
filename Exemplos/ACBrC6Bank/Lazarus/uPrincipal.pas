@@ -1,37 +1,37 @@
 { ****************************************************************************** }
 { Projeto: Componentes ACBr }
-{ Biblioteca multiplataforma de componentes Delphi para interaÁ„o com equipa- }
-{ mentos de AutomaÁ„o Comercial utilizados no Brasil }
+{ Biblioteca multiplataforma de componentes Delphi para intera√ß√£o com equipa- }
+{ mentos de Automa√ß√£o Comercial utilizados no Brasil }
 { }
 { Direitos Autorais Reservados (c) 2024 Daniel Simoes de Almeida }
 { }
 { Colaboradores nesse arquivo: Daniel CasaGrande InfoCotidiano }
 { }
-{ VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do  Projeto ACBr }
+{ Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do  Projeto ACBr }
 { Componentes localizado em      http://www.sourceforge.net/projects/acbr }
 { }
-{ Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior. }
+{ Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior. }
 { }
-{ Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor }
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT) }
+{ Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor }
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT) }
 { }
-{ VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto }
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc., }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA. }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em: }
+{ Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto }
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc., }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA. }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em: }
 { http://www.opensource.org/licenses/lgpl-license.php }
 { }
-{ Daniel Simıes de Almeida - daniel@projetoacbr.com.br - www.projetoacbr.com.br }
-{ Rua Coronel Aureliano de Camargo, 963 - TatuÌ - SP - 18270-170 }
+{ Daniel Sim√µes de Almeida - daniel@projetoacbr.com.br - www.projetoacbr.com.br }
+{ Rua Coronel Aureliano de Camargo, 963 - Tatu√≠ - SP - 18270-170 }
 { ****************************************************************************** }
 
 {$I ACBr.inc}
-// descomentar o motor de relatÛrio que desejar utilizar! removendo o ponto
+// descomentar o motor de relat√≥rio que desejar utilizar! removendo o ponto
 {$DEFINE GERADOR_FORTES_REPORT}
 { .$DEFINE GERADOR_FAST_REPORT }
 
@@ -65,12 +65,12 @@ uses
   Forms,
   TypInfo,
   IniFiles,
-  Mask,
+//  Mask,
   Spin,
   StrUtils,
   synacode,
-  Grids,
-  jpeg,
+  Grids, MaskEdit, DateTimePicker,
+  //jpeg,
   Classes,
   ACBrPIXCD,
   ACBrPIXPSPC6Bank,
@@ -85,8 +85,7 @@ uses
   ACBrPIXBRCode,
   ACBrPIXSchemasPix,
   ACBrPIXSchemasDevolucao,
-  ACBrPIXSchemasCob,
-  ImageList;
+  ACBrPIXSchemasCob;
 
 type
 
@@ -103,6 +102,8 @@ type
 
   TIndicadorTela = (itBoleto, itPix, itNenhuma, itCfgPix, itCfgBoleto,
     itTestePix);
+
+  { TfrmPrincipal }
 
   TfrmPrincipal = class(TForm)
     pnpMenu: TPanel;
@@ -899,7 +900,7 @@ CONST
   CURL_MCC = 'https://classification.codes/classifications/industry/mcc/';
 
   MOTOR_NAO_SELECIONADO =
-    'MOTOR DE RELAT”RIO N√O FOI SELECIONADO, VERIFIQUE!!!';
+    'MOTOR DE RELAT√ìRIO N√ÉO FOI SELECIONADO, VERIFIQUE!!!';
 
   FILTER_RETORNO = '*.txt|*.txt|*.ret|*.ret|*.*|*.*';
   FILTER_INI = '*.ini|*.ini|*.*|*.*';
@@ -922,7 +923,7 @@ uses
   ACBrPIXPSPBancoDoBrasil,
   DateUtils;
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TfrmPrincipal.ACBrPSPBancoDoBrasil1QuandoReceberRespostaHttp
   (const AURL, AMethod: string; RespHeaders: TStrings; var AResultCode: Integer;
@@ -1189,7 +1190,7 @@ begin
   CarregarLayOutImpressao;
   CarregarTipoDesconto;
   CarregarTipoOcorrenciaBoleto;
-  { carregando informaÁıes Salvas }
+  { carregando informa√ß√µes Salvas }
   LerIniComponente;
   AplicarConfiguracoesComponenteATela;
   InicializarComponentesPixDefault;
@@ -1608,7 +1609,7 @@ begin
       xArquivo := dlgFile.FileName
     else
       raise Exception.Create
-        ('… NECESS¡RIO SELECIONAR O ARQUIVO DE CONFIGURA«’ES');
+        ('√â NECESS√ÅRIO SELECIONAR O ARQUIVO DE CONFIGURA√á√ïES');
   end
   else
     xArquivo := ExtractFilePath(ParamStr(0)) +
@@ -1811,7 +1812,7 @@ begin
     4:Titulo.OcorrenciaOriginal.Tipo := toRemessaAlterarJurosMora;
     5:Titulo.OcorrenciaOriginal.Tipo := toRemessaAlterarMulta;
   end;
-  ShowMessage('OcorrÍncia Original: ' + sLineBreak +
+  ShowMessage('Ocorr√™ncia Original: ' + sLineBreak +
     GetEnumName(TypeInfo(TACBrTipoOcorrencia),
     Integer(Titulo.OcorrenciaOriginal.Tipo)));
 
@@ -1901,13 +1902,13 @@ begin
     begin
       VLinha := '.';
 
-      VQtdeCarcA := Length('DescriÁ„o Produto/ServiÁo ' + IntToStr(I));
+      VQtdeCarcA := Length('Descri√ß√£o Produto/Servi√ßo ' + IntToStr(I));
       VQtdeCarcB := Length('Valor:');
       VQtdeCarcC := 85 - (VQtdeCarcA + VQtdeCarcB);
 
       VLinha := PadLeft(VLinha, VQtdeCarcC, '.');
 
-      Titulo.Detalhamento.Add('DescriÁ„o Produto/ServiÁo ' + IntToStr(I) + ' ' +
+      Titulo.Detalhamento.Add('Descri√ß√£o Produto/Servi√ßo ' + IntToStr(I) + ' ' +
         VLinha + ' Valor:   ' + PadRight(FormatCurr('R$ ###,##0.00',
         StrToCurr(edtValorDoc.Text) * 0.25), 18, ' '));
     end;
@@ -1952,8 +1953,8 @@ begin
     for I := 0 to Pred(Retorno.Count) do
     begin
       RetText.Add('---------------------------');
-      RetText.Add('Nosso N˙mero         : ' + Retorno[I].NossoNumero);
-      RetText.Add('Seu N˙mero           : ' + Retorno[I].SeuNumero);
+      RetText.Add('Nosso N√∫mero         : ' + Retorno[I].NossoNumero);
+      RetText.Add('Seu N√∫mero           : ' + Retorno[I].SeuNumero);
       RetText.Add('Data Vencimento      : ' + datetostr(Retorno[I].Vencimento));
       RetText.Add('ValorDocumento       : ' +
         CurrToStr(Retorno[I].ValorDocumento));
@@ -1977,7 +1978,7 @@ begin
         Integer(Retorno[I].OcorrenciaOriginal.Tipo)));
       RetText.Add('Desc Tipo Ocorrencia : ' + Retorno[I]
         .OcorrenciaOriginal.descricao);
-      RetText.Add('DescriÁ„oo Comando   : ' + Retorno[I]
+      RetText.Add('Descri√ß√£oo Comando   : ' + Retorno[I]
         .DescricaoMotivoRejeicaoComando.Text);
       // [...] demais propriedades do titulo a gosto
     end;
@@ -2283,7 +2284,7 @@ begin
           ShowMessage('Pagamento Estornado com Sucesso')
         else if (fFluxoDados.StatusDevolucao = stdEM_PROCESSAMENTO) then
           tmConsultarDevolucao.Enabled := True;
-        // Estorno pendente? ...Consultar atÈ alterar Status
+        // Estorno pendente? ...Consultar at√© alterar Status
       end
       else
       begin
@@ -2552,9 +2553,9 @@ begin
   a := AdicionarPathAplicacao(edC6BankCertificado.Text);
   E := 'OK';
   if (a = '') then
-    E := ACBrStr('Arquivo n„o especificado')
+    E := ACBrStr('Arquivo n√£o especificado')
   else if (not FileExists(a)) then
-    E := ACBrStr('Arquivo n„o encontrado')
+    E := ACBrStr('Arquivo n√£o encontrado')
   else
   begin
     try
@@ -2576,9 +2577,9 @@ begin
   a := AdicionarPathAplicacao(edC6BankChavePrivada.Text);
   E := 'OK';
   if (a = '') then
-    E := ACBrStr('Arquivo n„o especificado')
+    E := ACBrStr('Arquivo n√£o especificado')
   else if (not FileExists(a)) then
-    E := ACBrStr('Arquivo n„o encontrado')
+    E := ACBrStr('Arquivo n√£o encontrado')
   else
   begin
     try
@@ -2619,7 +2620,7 @@ begin
     if RevisarCobrancaImediata(edCancelarCobrancaTxID.Text) then
     begin
       mmCancelarCobranca.Lines.Text := FormatarJSON(CobGerada.AsJSON);
-      MostrarCobrancaEmLinhas('  CobranÁa', CobGerada,
+      MostrarCobrancaEmLinhas('  Cobran√ßa', CobGerada,
         mmCancelarCobranca.Lines);
     end
     else
@@ -2679,7 +2680,7 @@ begin
     mmCobVConsultarLista.Lines.Add('');
     mmCobVConsultarLista.Lines.Add('Encontrado: ' +
       IntToStr(ACBrPixCD1.PSP.epCobV.CobsVConsultadas.cobs.Count) +
-      ', CobranÁas');
+      ', Cobran√ßas');
     for I := 0 to ACBrPixCD1.PSP.epCobV.CobsVConsultadas.cobs.Count - 1 do
       mmCobVConsultarLista.Lines.Add('');
   end
@@ -2730,7 +2731,7 @@ begin
     mConsultarCobrancas.Lines.Add('');
     mConsultarCobrancas.Lines.Add('Encontrado: ' +
       IntToStr(ACBrPixCD1.PSP.epCob.CobsConsultadas.cobs.Count) +
-      ', CobranÁas');
+      ', Cobran√ßas');
     for I := 0 to ACBrPixCD1.PSP.epCob.CobsConsultadas.cobs.Count - 1 do
     begin
       mConsultarCobrancas.Lines.Add('');
@@ -2839,7 +2840,7 @@ begin
       s := OnlyNumber(edtCriarCobrancaImediata_CPF_CNPJ.Text);
       if (s = '') then
         raise Exception.Create
-          ('Caso o Nome do Devedor seja Informado, e necess·rio informar CPF ou CNPJ')
+          ('Caso o Nome do Devedor seja Informado, e necess√°rio informar CPF ou CNPJ')
       else if (Length(s) > 11) then
         devedor.cnpj := s
       else
@@ -2906,7 +2907,7 @@ begin
         s := OnlyNumber(edCobVCompradorDoc.Text);
         if EstaVazio(s) then
           raise Exception.Create
-            ('Caso o Nome do Devedor seja Informado, È necess·rio informar CPF ou CNPJ')
+            ('Caso o Nome do Devedor seja Informado, √© necess√°rio informar CPF ou CNPJ')
         else if (Length(s) > 11) then
           cnpj := s
         else
@@ -3025,7 +3026,7 @@ procedure TfrmPrincipal.VerificarConfiguracaoPIXCD;
 begin
   if imgErrNome.Visible or imgErrCEP.Visible then
   begin
-    MessageDlg('Favor revise configuraÁ„o das propriedades Nome/CEP', mtWarning,
+    MessageDlg('Favor revise configura√ß√£o das propriedades Nome/CEP', mtWarning,
       [mbOK], 0);
     Abort;
   end;
@@ -3056,31 +3057,31 @@ begin
 end;
 
 function TfrmPrincipal.FormatarJSON(const AJSON: String): String;
-{$IFDEF FPC}
-var
-  jpar: TJSONParser;
-  j: TJsonObject;
-{$ENDIF}
+//{$IFDEF FPC}
+//var
+//  jpar: TJSONParser;
+//  j: TJsonObject;
+//{$ENDIF}
 begin
   Result := AJSON;
-{$IFDEF FPC}
-  try
-    j := TJsonObject.Create();
-    try
-      Result := j.Decode(Result);
-    finally
-      j.Free;
-    end;
-    jpar := TJSONParser.Create(Result, [joUTF8]);
-    try
-      Result := jpar.Parse.FormatJSON([], 2);
-    finally
-      jpar.Free;
-    end;
-  except
-    Result := AJSON;
-  end;
-{$ENDIF}
+//{$IFDEF FPC}
+//  try
+//    j := TJsonObject.Create();
+//    try
+//      Result := j.Decode(Result);
+//    finally
+//      j.Free;
+//    end;
+//    jpar := TJSONParser.Create(Result, [joUTF8]);
+//    try
+//      Result := jpar.Parse.FormatJSON([], 2);
+//    finally
+//      jpar.Free;
+//    end;
+//  except
+//    Result := AJSON;
+//  end;
+//{$ENDIF}
 end;
 
 procedure TfrmPrincipal.AnalisarBRCode(aBRCode: TACBrBRCode);
@@ -3089,7 +3090,7 @@ begin
   if (aBRCode is TACBrPIXQRCodeEstatico) then
     with TACBrPIXQRCodeEstatico(aBRCode) do
     begin
-      AdicionarLinhaLog('----- Analise do QRCode Est·tico -----');
+      AdicionarLinhaLog('----- Analise do QRCode Est√°tico -----');
       AdicionarLinhaLog('ChavePix: ' + PixKey);
       AdicionarLinhaLog('TipoChavePix: ' +
         GetEnumName(TypeInfo(TACBrPIXTipoChave), Integer(PixKeyType)));
@@ -3098,7 +3099,7 @@ begin
     end
   else if (aBRCode is TACBrPIXQRCodeDinamico) then
   begin
-    AdicionarLinhaLog('----- Analise do QRCode Din‚mico -----');
+    AdicionarLinhaLog('----- Analise do QRCode Din√¢mico -----');
     AdicionarLinhaLog('URL: ' + TACBrPIXQRCodeDinamico(aBRCode).URL);
   end;
 
@@ -3271,9 +3272,9 @@ begin
     stdDEVOLVIDO:
       AtualizarPanelPrincipal('PAGAMENTO DEVOLVIDO', $009A9A9A, False);
     stdEM_PROCESSAMENTO:
-      AtualizarPanelPrincipal('DEVOLU«AO PENDENTE', $00523C30, True);
+      AtualizarPanelPrincipal('DEVOLU√áAO PENDENTE', $00523C30, True);
     stdNAO_REALIZADO:
-      AtualizarPanelPrincipal('DEVOLU«√O N√O REALIZADA', $00523C30, False);
+      AtualizarPanelPrincipal('DEVOLU√á√ÉO N√ÉO REALIZADA', $00523C30, False);
   else
     case FluxoDados.StatusCobranca of
       stcATIVA:
@@ -3301,7 +3302,7 @@ begin
     ColWidths[2] := 120;
 
     Cells[0, 0] := 'EAN';
-    Cells[1, 0] := 'DescriÁ„o';
+    Cells[1, 0] := 'Descri√ß√£o';
     Cells[2, 0] := 'Valor';
     AdicionarItemGridFluxo('0123456789012', 'Batata Doce', 3.69);
   end;
@@ -3378,11 +3379,11 @@ begin
     ConsultarCobranca;
     if (fFluxoDados.StatusCobranca = stcCONCLUIDA) then
     begin
-      ShowMessage('CobranÁa j· foi PAGA. ImpossÌvel cancelar');
+      ShowMessage('Cobran√ßa j√° foi PAGA. Imposs√≠vel cancelar');
       Exit;
     end;
 
-    if (MessageDlg('Deseja realmente Cancelar a CobranÁa?', mtConfirmation,
+    if (MessageDlg('Deseja realmente Cancelar a Cobran√ßa?', mtConfirmation,
       mbOKCancel, 0) = mrNo) then
     begin
       tmConsultarPagto.Enabled := True;
@@ -3395,7 +3396,7 @@ begin
     begin
       Sleep(1000);
       ConsultarCobranca;
-      ShowMessage('CobranÁa cancelada com sucesso');
+      ShowMessage('Cobran√ßa cancelada com sucesso');
     end
     else
     begin
@@ -3424,12 +3425,12 @@ begin
 
   if EstaVazio(edFluxoItemDescricao.Text) then
   begin
-    ShowMessage('Informe a DescriÁ„o do Item');
+    ShowMessage('Informe a Descri√ß√£o do Item');
     edFluxoItemDescricao.SetFocus;
   end
   else if EstaVazio(edFluxoItemEAN.Text) then
   begin
-    ShowMessage('Informe o CÛdigo EAN do Item');
+    ShowMessage('Informe o C√≥digo EAN do Item');
     edFluxoItemEAN.SetFocus;
   end
   else
@@ -3501,7 +3502,7 @@ begin
     else
     begin
       fFluxoDados.EmErro := True;
-      ShowMessage('Erro ao criar cobranÁa: ' + sLineBreak +
+      ShowMessage('Erro ao criar cobran√ßa: ' + sLineBreak +
         FormatarJSON(ACBrPixCD1.PSP.epCob.Problema.AsJSON));
     end;
 
@@ -3564,7 +3565,7 @@ begin
     then
     begin
       fFluxoDados.EmErro := True;
-      ShowMessage('Erro ao consultar cobranÁa' + sLineBreak +
+      ShowMessage('Erro ao consultar cobran√ßa' + sLineBreak +
         ACBrPixCD1.PSP.epCob.Problema.title + sLineBreak +
         ACBrPixCD1.PSP.epCob.Problema.detail);
     end;
@@ -3625,7 +3626,7 @@ begin
   try
     if EstaVazio(FluxoDados.TxID) then
     begin
-      ShowMessage('Nenhuma cobranÁa a ser consultada');
+      ShowMessage('Nenhuma cobran√ßa a ser consultada');
       Exit;
     end;
 
