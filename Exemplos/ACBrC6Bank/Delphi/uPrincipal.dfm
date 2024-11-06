@@ -491,7 +491,7 @@ object frmPrincipal: TfrmPrincipal
       Margins.Top = 2
       Margins.Right = 2
       Margins.Bottom = 2
-      ActivePage = Boleto
+      ActivePage = ConfigBoleto
       Align = alClient
       TabOrder = 0
       object tabnenhum: TTabSheet
@@ -57171,6 +57171,21 @@ object frmPrincipal: TfrmPrincipal
             Margins.Right = 2
             Margins.Bottom = 2
           end
+          object Label104: TLabel
+            Left = 6
+            Top = 261
+            Width = 59
+            Height = 12
+            Caption = 'Ambiente WS'
+          end
+          object cbbAmbiente: TComboBox
+            Left = 3
+            Top = 276
+            Width = 235
+            Height = 20
+            Style = csDropDownList
+            TabOrder = 0
+          end
         end
         object btnCfgSalvaBoleto: TButton
           Left = 666
@@ -58203,7 +58218,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object ckbImprimirMensagemPadrao: TCheckBox
             Left = 9
-            Top = 20
+            Top = 27
             Width = 179
             Height = 14
             Margins.Left = 2
@@ -58215,7 +58230,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object ckbRemoverAcentuacaoRemessa: TCheckBox
             Left = 9
-            Top = 37
+            Top = 44
             Width = 179
             Height = 13
             Margins.Left = 2
@@ -58227,7 +58242,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object chkEMVFicticio: TCheckBox
             Left = 9
-            Top = 55
+            Top = 62
             Width = 179
             Height = 14
             Margins.Left = 2
@@ -58239,7 +58254,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object chkIndicadorPix: TCheckBox
             Left = 9
-            Top = 72
+            Top = 79
             Width = 121
             Height = 14
             Margins.Left = 2
@@ -58249,23 +58264,9 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Indicador de Pix'
             TabOrder = 4
           end
-          object ckbEmHomologacao: TCheckBox
-            Left = 9
-            Top = 89
-            Width = 152
-            Height = 13
-            Margins.Left = 2
-            Margins.Top = 2
-            Margins.Right = 2
-            Margins.Bottom = 2
-            Caption = 'Boleto em Homologa'#231#227'o'
-            Checked = True
-            State = cbChecked
-            TabOrder = 5
-          end
           object ckbLerCedenteArquivoRetorno: TCheckBox
             Left = 9
-            Top = 105
+            Top = 97
             Width = 179
             Height = 13
             Margins.Left = 2
@@ -58273,7 +58274,7 @@ object frmPrincipal: TfrmPrincipal
             Margins.Right = 2
             Margins.Bottom = 2
             Caption = 'Ler Cedente do Arq. Retorno'
-            TabOrder = 6
+            TabOrder = 5
           end
         end
       end
@@ -61513,7 +61514,7 @@ object frmPrincipal: TfrmPrincipal
     Configuracoes.Arquivos.LogNivel = logParanoico
     Configuracoes.WebService.SSLHttpLib = httpOpenSSL
     Configuracoes.WebService.StoreName = 'My'
-    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Ambiente = tawsHomologacao
     Configuracoes.WebService.Operacao = tpInclui
     Configuracoes.WebService.VersaoDF = '1.2'
     Left = 1232
