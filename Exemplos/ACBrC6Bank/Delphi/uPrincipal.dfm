@@ -55124,8 +55124,8 @@ object frmPrincipal: TfrmPrincipal
           object Label80: TLabel
             Left = 14
             Top = 18
-            Width = 77
-            Height = 11
+            Width = 97
+            Height = 13
             Margins.Left = 2
             Margins.Top = 2
             Margins.Right = 2
@@ -55143,8 +55143,8 @@ object frmPrincipal: TfrmPrincipal
           object Label83: TLabel
             Left = 14
             Top = 54
-            Width = 174
-            Height = 12
+            Width = 196
+            Height = 13
             Margins.Left = 2
             Margins.Top = 2
             Margins.Right = 2
@@ -55175,8 +55175,8 @@ object frmPrincipal: TfrmPrincipal
           object Label86: TLabel
             Left = 13
             Top = 131
-            Width = 126
-            Height = 12
+            Width = 140
+            Height = 13
             Margins.Left = 2
             Margins.Top = 2
             Margins.Right = 2
@@ -60993,7 +60993,7 @@ object frmPrincipal: TfrmPrincipal
                       object lbMateraSimularPagamento: TLabel
                         Left = 83
                         Top = 19
-                        Width = 330
+                        Width = 357
                         Height = 16
                         Margins.Left = 2
                         Margins.Top = 2
@@ -61429,14 +61429,13 @@ object frmPrincipal: TfrmPrincipal
           object Label111: TLabel
             Left = 1
             Top = 1
-            Width = 289
+            Width = 85
             Height = 12
             Margins.Left = 2
             Margins.Top = 2
             Margins.Right = 2
             Align = alTop
             Caption = 'Log das Opera'#231#245'es'
-            ExplicitWidth = 85
           end
           object mLog: TMemo
             Left = 1
@@ -61510,6 +61509,7 @@ object frmPrincipal: TfrmPrincipal
     Banco.CasasDecimaisMoraJuros = 2
     Cedente.TipoInscricao = pJuridica
     Cedente.PIX.TipoChavePIX = tchNenhuma
+    Cedente.IntegradoraBoleto = tibNenhum
     NumeroArquivo = 0
     Configuracoes.Arquivos.LogNivel = logParanoico
     Configuracoes.WebService.SSLHttpLib = httpOpenSSL
